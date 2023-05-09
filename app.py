@@ -31,6 +31,17 @@ def undo():
         clear_display()
         display.insert(0, 'Error')
 
+def calculate():
+    display_state = display.get()
+    try:
+        math_expression =  compile(display_state, 'app.py', 'eval')
+        result = eval(math_expression)
+        clear_display()
+        display.insert(0,result)
+    except:
+        clear_display()
+        display.insert(0,"error")
+
 
 #botones numericos
 Button(root, text="1", command=lambda:get_numbers(1)).grid(row=2, column=0, sticky=W+E)
@@ -60,6 +71,6 @@ Button(root, text="exp", command=lambda:get_op("**")).grid(row=3, column=4, stic
 Button(root, text="^2", command=lambda:get_op("**2")).grid(row=3, column=5, sticky=W+E)
 Button(root, text="(", command=lambda:get_op("(")).grid(row=4, column=4, sticky=W+E)
 Button(root, text=")", command=lambda:get_op(")")).grid(row=4, column=5, sticky=W+E)
-Button(root, text="=", command=lambda:get_op("+")).grid(row=5, column=4, sticky=W+E, columnspan=2)
+Button(root, text="=", command=lambda:calculate()).grid(row=5, column=4, sticky=W+E, columnspan=2)
 
 root.mainloop()
